@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -77,6 +79,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+
+# For development
+os.environ["PGDATABASE"] = "railway"
+os.environ["PGUSER"] = "postgres"
+os.environ["PGPASSWORD"] = "5RwAnzJo05RbvjpZdLde"
+os.environ["PGHOST"] = "containers-us-west-116.railway.app"
+os.environ["PGPORT"] = "6440"
+
 
 DATABASES = {
     'default': {
