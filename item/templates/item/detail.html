@@ -35,8 +35,28 @@
 
     </div>
     <hr>
-    <div class="">
-        Other
+
+    <h3 class="text-center m-3">Related Items</h3>
+    <div class="row">
+        {% for item in related_items %}
+        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+            <div class="card">
+            <a href="{% url 'item:detail' item.id %}">
+                <img
+                src="{{ item.image.url }}"
+                class="w-100 shadow rounded card-img-top mb-4"
+                onerror="if (this.src != 'error.jpg') this.src = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';"
+                />
+
+                <div class="bg-white rounded card-body">
+                    <h2 class="card-title">{{item.name}}</h2>
+                    <p class="card-text">{{item.price}}€</p>
+                </div>
+            </a>
+        </div>
+        </div>
+        {% endfor %}
     </div>
+    <br><br>
 </div>
 {% endblock  %}
