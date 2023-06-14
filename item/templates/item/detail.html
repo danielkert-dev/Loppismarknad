@@ -1,0 +1,42 @@
+{% extends 'core/base.html' %}
+
+
+{% block title %}{{ item.name }}{% endblock  %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mt-3 d-flex" style="max-width: 100rem; margin-left: auto; margin-right: auto"> 
+
+        <div class="col-sm-4 mb-4 mb-lg-0" style="max-height: 25rem">
+        <img 
+        src="{{ item.image.url }}" 
+        class="w-100 rounded shadow" 
+        style="object-fit:cover; max-height: 25rem" 
+        onerror="if (this.src != 'error.jpg') this.src = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';"
+        />
+        </div>
+
+        <div class="col-sm-4 mb-4 mb-lg-0" style="max-height: 25rem">
+            <h1 class="mb-3"> {{ item.name }}</h1>
+            <p class="text-secondary m-0"><strong>Price: </strong>{{ item.price }}</p>
+            <p class="text-secondary m-0"><strong>Seller: </strong>{{ item.created_by.username}}</p>
+            {% if item.description %}
+            <p class="text-secondary m-0"><strong>Description: </strong> {{ item.description}} </p>
+            {% endif %}
+
+            <a href="#" class="btn btn-primary mt-3">
+                Contact seller
+            </a>
+        </div>
+
+        <div class="col-sm-4 mb-4 mb-lg-0" style="max-height: 25rem">
+            <img src="https://www.netmaps.net/wp-content/uploads/2016/03/Helsinki-Vector-Map.jpg" class="w-100 rounded shadow"/>
+        </div>
+
+    </div>
+    <hr>
+    <div class="">
+        Other
+    </div>
+</div>
+{% endblock  %}
