@@ -27,7 +27,7 @@
 
             document.querySelectorAll('img').forEach(img => {
                 
-                img.style="object-fit:cover; max-height: 25rem" 
+                img.style="object-fit:cover; max-height: 20rem; min-height: 20rem;" 
                 img.loading="lazy"
                 img.addEventListener('error', function() {
                     if (this.src != 'error.jpg') this.src = '{% static "error.svg" %}';
