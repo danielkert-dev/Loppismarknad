@@ -1,0 +1,32 @@
+{% extends "core/base.html" %}
+{% include 'core/footer.html' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+<div class="bg-light">
+    <h2 class=" text-center m-3">My items</h2>
+    <div class="container justify-content-center">
+        <div class="row">
+            {% for item in items %}
+            <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                <div class="card mb-4 shadow">
+                <a href="{% url 'item:detail' item.id %}">
+                    <img
+                    data-src="{{ item.image.url }}" 
+                    alt="{{ item.name }}"
+                    class="lazy w-100 shadow rounded-top card-img-top "
+                    />
+
+                    <div class="bg-dark text-light rounded-bottom card-body">
+                        <h2 class="card-title">{{item.name}}</h2>
+                        <p class="card-text">{{item.price}}€</p>
+                    </div>
+                </a>
+            </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -23,7 +23,7 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(request, 'core:index')
+            return redirect('core:index')
     else:
         form = SignupForm()
 
