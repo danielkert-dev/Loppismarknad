@@ -7,7 +7,7 @@
 
 {% block content %}
     <div class="w1/2 my-6 mx-auto rounded m-3 p-5 text-dark border rounded shadow">
-        <h1 class="">Sign up </h1>
+        <h1 class="">Login</h1>
 
         <form method="post" action=".">
             {% csrf_token %}
@@ -18,19 +18,10 @@
             </div>
 
             <div class="mb-2 form-group">
-                <label for="email" class="form-control-label mb-2">Email</label><br>
-                {{ form.email}}
+                <label for="password" class="form-control-label mb-2" >Password</label><br>
+                {{ form.password}}
             </div>
 
-            <div class="mb-2 form-group">
-                <label for="password1" class="form-control-label mb-2" >Password</label><br>
-                {{ form.password1}}
-            </div>
-
-            <div class="mb-2 form-group">
-                <label for="password2" class="form-control-label mb-2">Repeat password</label><br>
-                {{ form.password2 }}
-            </div>
 
             {% if form.non_field_errors or form.errors %}
                 <div>

@@ -28,6 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+LOGIN_URL = "/login/"
+LOGOUT_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
 # FORM SUBMISSION
 # Comment out the following line and place your railway URL, and your production URL in the array.
 # CSRF_TRUSTED_ORIGINS = ["*"]
