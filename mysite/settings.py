@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'storages',
+
     'core',
     'dashboard',
     'item',
@@ -152,3 +154,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = ['https://loppismarknad.com']
+
+# AWS S3
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = 'AKIA33RROQEP5EIQC445'
+
+AWS_SECRET_ACCESS_KEY = '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'
+
+AWS_STORAGE_BUCKET_NAME = 'loppismarknad'
+
+AWS_QUERYSTRING_AUTH = False
