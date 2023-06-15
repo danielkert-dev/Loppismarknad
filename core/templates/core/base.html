@@ -26,6 +26,8 @@
             lazyload(document.querySelectorAll('img'));
 
             document.querySelectorAll('img').forEach(img => {
+                
+                img.style="object-fit:cover; max-height: 25rem" 
                 img.loading="lazy"
                 img.addEventListener('error', function() {
                     if (this.src != 'error.jpg') this.src = '{% static "error.svg" %}';
