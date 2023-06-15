@@ -12,8 +12,9 @@
                 <div class="card">
                 <a href="{% url 'item:detail' item.id %}">
                     <img
-                    src="{{ item.image.url }}"
-                    class="w-100 shadow rounded card-img-top mb-4"
+                    data-src="{{ item.image.url }}" 
+                    alt="{{ item.name }}"
+                    class="lazy w-100 shadow rounded card-img-top mb-4"
                     onerror="if (this.src != 'error.jpg') this.src = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';"
                     />
 
