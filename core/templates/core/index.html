@@ -9,13 +9,12 @@
         <div class="row">
             {% for item in items %}
             <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                <div class="card">
+                <div class="card mb-4">
                 <a href="{% url 'item:detail' item.id %}">
                     <img
                     data-src="{{ item.image.url }}" 
                     alt="{{ item.name }}"
                     class="lazy w-100 shadow rounded card-img-top mb-4"
-                    onerror="if (this.src != 'error.jpg') this.src = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';"
                     />
 
                     <div class="bg-white rounded card-body">

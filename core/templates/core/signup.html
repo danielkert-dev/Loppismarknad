@@ -6,8 +6,14 @@
 
 
 {% block content %}
-    <div class="w1/2 my-6 mx-auto bg-gray rounded">
+    <div class="w1/2 my-6 mx-auto rounded m-3 p-2 text-dark border rounded shadow">
         <h1 class="">Sign up </h1>
+
+        <form method="post" action=".">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Sign up">
+        </form>
     </div>
 {% endblock  %}
     
