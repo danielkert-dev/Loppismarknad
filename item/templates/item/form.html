@@ -14,18 +14,17 @@
         {% csrf_token %}
         <div>
         {{ form.as_p }}
-        <button type="submit" class="btn btn-outline-light me-2" onclick="this.disabled=true,this.form.submit();">Submit</button>
+        <button type="submit" class="btn btn-primary me-2" onclick="this.disabled=true,this.form.submit();">Submit</button>
     </div>
 
 {% if form.non_field_errors or form.errors %}
 <div>
         {% for field in form %}
-            {% for error in field.errors %}
                 <p class="text-danger">{{ error }}</p>
-            {% endfor %}
         {% endfor %}
         {{ form.none_field_error }}
-</div>    </form>
+</div>    
+</form>
 
 {% endif %}
 </div>
