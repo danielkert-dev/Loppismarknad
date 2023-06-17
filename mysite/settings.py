@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -159,9 +160,9 @@ CSRF_TRUSTED_ORIGINS = ['https://loppismarknad.com']
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = 'AKIA33RROQEP5EIQC445'
+AWS_ACCESS_KEY_ID = config('AWS_ID')
 
-AWS_SECRET_ACCESS_KEY = '3oMUDaG4L/eIZlIkh5JfQzpx/rRMAiKPFlLueBEX'
+AWS_SECRET_ACCESS_KEY = config('AWS_KEY')
 
 AWS_STORAGE_BUCKET_NAME = 'loppismarknad'
 
