@@ -92,9 +92,9 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # For development
 os.environ["PGDATABASE"] = "railway"
 os.environ["PGUSER"] = "postgres"
-os.environ["PGPASSWORD"] = "5RwAnzJo05RbvjpZdLde"
-os.environ["PGHOST"] = "containers-us-west-116.railway.app"
-os.environ["PGPORT"] = "6440"
+os.environ["PGPASSWORD"] = "ihGhFPwVxDlYPbMEFNEA"
+os.environ["PGHOST"] = "containers-us-west-174.railway.app"
+os.environ["PGPORT"] = "6761"
 
 
 DATABASES = {
