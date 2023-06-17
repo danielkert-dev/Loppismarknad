@@ -20,7 +20,6 @@
         }
 
         .easeload{
-            opacity: 0;
             -webkit-transition: all .5s ease; 
             -moz-transition: all .5s ease; 
             -ms-transition: all .5s ease; 
@@ -49,10 +48,12 @@
                 
                 img.classList.add('easeload');
                 img.onload = function() {
-                    this.style.opacity=1;
+                    setTimeout(function(){
+                        this.style.opacity=1;
+                    }, 500);
                 }
-                img.height="0";
-                img.width="0";
+                img.height="50";
+                img.width="50";
                 img.style="object-fit:cover; max-height: 20rem; min-height: 20rem;" 
                 img.loading="lazy"
                 img.addEventListener('error', function() {
