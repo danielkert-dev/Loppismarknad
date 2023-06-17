@@ -18,10 +18,15 @@
         a:hover {
             cursor: pointer;
         }
-        image {
-            background-image: url('{% static "error.svg" %}');
-            background-size: cover;
+
+        .easeload{
+            opacity: 0;
+            -webkit-transition: all .5s ease; 
+            -moz-transition: all .5s ease; 
+            -ms-transition: all .5s ease; 
+            -o-transition: all .5s ease; 
         }
+
     </style>
 
 </head>
@@ -42,6 +47,12 @@
 
             document.querySelectorAll('img').forEach(img => {
                 
+                img.classList.add('easeload');
+                img.onload = function() {
+                    this.style.opacity=1;
+                }
+                img.height="0";
+                img.width="0";
                 img.style="object-fit:cover; max-height: 20rem; min-height: 20rem;" 
                 img.loading="lazy"
                 img.addEventListener('error', function() {

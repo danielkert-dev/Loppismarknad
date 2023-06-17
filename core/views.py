@@ -1,17 +1,25 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
+from django.db import models
 
 from item.models import Category, Item
+
 
 from .forms import SignupForm
 
 # Create your views here.
 
 def index(request):
-    items = Item.objects.filter(is_sold=False)[0:10]
+    all_items = Item.objects.filter(is_sold=False)
+    paginator = Paginator(all_items, 10)
+    page_number = request.GET.get('page')
+    items = paginator.get_page(page_number)
     categories = Category.objects.all()
+    popular_categories = Category.objects.annotate(item_count=models.Count('items')).order_by('-item_count')[:5]
     return render(request, 'core/index.html', {
         'categories': categories,
         'items': items,
+        'popular_categories': popular_categories,
     })
 
 def contact(request):

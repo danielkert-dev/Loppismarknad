@@ -10,6 +10,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
+    def get_item_count(self):
+        return self.items.all().count()
+    
 
 class Item(models.Model):
     category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)

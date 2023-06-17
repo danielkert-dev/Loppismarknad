@@ -5,8 +5,24 @@
 {% block content %}
 
 
+        <div class="container">
+            <div class="d-flex flex-wrap flex-row justify-content-center mt-4">
+            {% for category in popular_categories  %}
+            <div class="m-1">
+                <a href="{% url 'item:browse' %}?query={{ category.name }}">
+                <div class="rounded-pill shadow bg-dark text-light">
+                    <p class="text-center align-middle p-2 px-4"><strong>{{category.name}}</strong> {{category.get_item_count}}</p>
+                </div>
+            </a>
+            </div>
+
+            {% endfor %}
+            </div>
+            <hr />
+        </div>
 
     <h2 class=" text-center m-3">Nya</h2>
+
     <div class="container justify-content-center">
         <div class="row">
             {% for item in items %}
@@ -30,24 +46,28 @@
         </div>
     </div>
 
-<div class="bg-light">
-    <h2 class=" text-center m-3">Categoires</h2>
     <div class="container">
-        <div class="row justify-content-md-center">
-        {% for category in categories  %}
-        <div class="col-sm">
-            <a href="#">
-
-            <div class="rounded shadow p-2">
-                <h2 class="text-2">{{category.name}}</h2>
-                <p class="text-gray-500">{{category.items.count}}items</p>
-            </div>
-        </a>
-        </div>
-        {% endfor %}
+        <div class="d-flex justify-content-center my-4 ">
+            {% if items.has_previous %}
+                <a href="?page=1" class="btn btn-primary m-1">&laquo; first</a>
+                <a href="?page={{ items.previous_page_number }}" class="btn btn-primary m-1">previous</a>
+            {% else %}
+                <a href="#" class="btn btn-secondary m-1">&laquo; first</a>
+                <a href="#" class="btn btn-secondary m-1">previous</a>
+            {% endif %}
+    
+            <div class="btn btn-light m-1 btn-outline-dark" style="pointer-events: none">{{ items.number }}</div>
+    
+            {% if items.has_next %}
+                <a href="?page={{ items.next_page_number }}" class="btn btn-primary m-1">next</a>
+                <a href="?page={{ items.paginator.num_pages }}" class="btn btn-primary m-1">last &raquo;</a>
+            {% else %}
+                <a href="#" class="btn btn-secondary m-1">next</a>
+                <a href="#" class="btn btn-secondary m-1">&raquo; last</a>
+            {% endif %}
         </div>
     </div>
-</div>
+
 
 <br><br>
 
