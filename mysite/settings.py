@@ -86,25 +86,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-# For development
-os.environ["PGDATABASE"] = "railway"
-os.environ["PGUSER"] = "postgres"
-os.environ["PGPASSWORD"] = "ihGhFPwVxDlYPbMEFNEA"
-os.environ["PGHOST"] = "containers-us-west-174.railway.app"
-os.environ["PGPORT"] = "6761"
 
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ["PGDATABASE"],
-        'USER': os.environ["PGUSER"],
-        'PASSWORD': os.environ["PGPASSWORD"],
-        'HOST': os.environ["PGHOST"],
-        'PORT': os.environ["PGPORT"],
+        'NAME': config('PGDATABASE'),
+        'USER': config('PGUSER'),
+        'PASSWORD': config('PGPASSWORD'),
+        'HOST': config('PGHOST'),
+        'PORT': config('PGPORT'),
     }
 }
 

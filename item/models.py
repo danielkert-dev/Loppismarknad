@@ -21,7 +21,7 @@ class Status(models.Model):
         verbose_name_plural = 'Status'
     
     def __str__(self):
-        return self.name
+        return self.status
     
 class Item(models.Model):
     category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)

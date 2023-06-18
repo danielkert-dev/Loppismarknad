@@ -15,12 +15,6 @@ class NewItemForm(forms.ModelForm):
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
-        }
-    class Meta:
-        model = Status
-        fields = ('status',)
-
-        widgets = {
             'status': forms.Select(attrs={'class': 'form-control'}),
         }
 
