@@ -15,7 +15,7 @@ def browse(request):
         items = items.filter(category_id=category_id)
 
     if query:
-        items = items.filter(Q(name__icontains=query) | Q(description__icontains=query) | Q(category__name__icontains=query))
+        items = items.filter(Q(name__icontains=query) | Q(description__icontains=query) | Q(category__name__icontains=query) | Q(status__status__icontains=query))
 
     return render(request, 'item/browse.html', {
         'items': items,
@@ -46,7 +46,7 @@ def new(request):
 
     return render(request, 'item/form.html', {
         'form': form,
-        'title': 'New Item'
+        'title': 'Ny inlägg'
     })
 
 @login_required
@@ -69,5 +69,5 @@ def edit(request, pk):
 
     return render(request, 'item/form.html', {
         'form': form,
-        'title': 'Edit Item'
+        'title': 'Redigera inlägg'
     })

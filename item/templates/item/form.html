@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 
 {% block title %}
@@ -8,25 +9,29 @@
 
 {% block content %}
 
-<div class="w1/2 my-6 mx-auto rounded m-3 p-5 text-dark border rounded shadow">
-    <h1> {{ title }}</h1>
+<div class="w1/2 my-6 mx-auto m-3 p-5 text-dark border rounded shadow">
+    <h1 class="mb-2"> {{ title }}</h1>
     <form action="." method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div>
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary me-2" onclick="this.disabled=true,this.form.submit();">Submit</button>
-    </div>
 
-{% if form.non_field_errors or form.errors %}
-<div>
         {% for field in form %}
-                <p class="text-danger">{{ error }}</p>
+        <div class="mb-2 form-group">
+            <label for="{{ field.id_for_label }}" class="form-control-label mb-2">{{ field.label }}</label><br>
+            {{ field }}
+            {% if field.errors %}
+                <div class="p-2 mt-2 alert alert-danger text-center">
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
         {% endfor %}
-        {{ form.none_field_error }}
-</div>    
-</form>
+        
+        
 
-{% endif %}
+        <button type="submit" class="btn btn-primary me-2" onclick="this.disabled=true,this.form.submit();">Submit</button>
+    </form>
 </div>
 
 {% endblock  %}
