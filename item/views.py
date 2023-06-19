@@ -3,13 +3,15 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewItemForm, EditItemForm
-from .models import Item, Category, Status
+from .models import Item, Category
 
 def browse(request):
     items = Item.objects.filter(is_sold=False)
     query = request.GET.get('query', '')
     max_price = request.GET.get('max_price')
     min_price = request.GET.get('min_price')
+    created_from = request.GET.get('created_from', '')
+    created_to = request.GET.get('created_to', '')
     categories = Category.objects.all()
 
     if max_price:
@@ -18,9 +20,20 @@ def browse(request):
     if min_price:
         items = items.filter(price__gte=min_price)  # Replace 'price' with the name of your new query input
 
-    if query:
-        items = items.filter(Q(name__icontains=query) | Q(description__icontains=query) | Q(category__name__icontains=query) | Q(status__status__icontains=query))
+    if created_from:
+        items = items.filter(created_at__gte=created_from)
 
+    if created_to:
+        items = items.filter(created_at__lte=created_to)
+
+    if query:
+        keywords = query.split()  # Split query into separate keywords
+        query_filter = Q()  # Create an empty Q object
+
+        for keyword in keywords:
+            query_filter |= Q(name__icontains=keyword) | Q(category__name__icontains=keyword) | Q(status__status__icontains=query)
+
+        items = items.filter(query_filter)
 
     return render(request, 'item/browse.html', {
         'items': items,
@@ -28,6 +41,8 @@ def browse(request):
         'max_price': max_price,  # Include the new variable in the dictionary
         'min_price': min_price,
         'categories': categories,
+        'created_from': created_from,
+        'created_to': created_to,
 
     })
 
