@@ -3,25 +3,32 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewItemForm, EditItemForm
-from .models import Item, Category
+from .models import Item, Category, Status
 
 def browse(request):
-    query = request.GET.get('query', '')
-    category_id = request.GET.get('category', 0)
-    categories = Category.objects.all()
     items = Item.objects.filter(is_sold=False)
+    query = request.GET.get('query', '')
+    max_price = request.GET.get('max_price')
+    min_price = request.GET.get('min_price')
+    categories = Category.objects.all()
 
-    if category_id:
-        items = items.filter(category_id=category_id)
+    if max_price:
+        items = items.filter(price__lte=max_price)  # Replace 'price' with the name of your new query input
+
+    if min_price:
+        items = items.filter(price__gte=min_price)  # Replace 'price' with the name of your new query input
 
     if query:
         items = items.filter(Q(name__icontains=query) | Q(description__icontains=query) | Q(category__name__icontains=query) | Q(status__status__icontains=query))
 
+
     return render(request, 'item/browse.html', {
         'items': items,
         'query': query,
+        'max_price': max_price,  # Include the new variable in the dictionary
+        'min_price': min_price,
         'categories': categories,
-        'category_id': int(category_id)
+
     })
 
 def detail(request, pk):

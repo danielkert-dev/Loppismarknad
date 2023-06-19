@@ -9,118 +9,45 @@
     
 
 {% block content %}
-    <div class="container">
-        <div class="d-flex flex-column bd-highlight">
+<div class="container ">
 
-        <div class="p-2 w-100 flex-shrink-1 bd-highlight">
-            <div class="bg-light container justify-content-center border rounded shadow p-2">
-            <form mehtod="GET" action="{% url 'item:browse' %}" class="form-outline">
-                <div class="input-group">
-                <input name="query" type="text" class="form-control" value="{{query}}" placeholder="Search">
-                <button class="btn btn-primary" type="submit">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                      </svg>
-                </button>
-                </div>
-            </form>
+  <div class=" p-2">
+    <form method="GET" action="{% url 'item:browse' %}">
 
-            </div>
-            </div>
+      <div class=" pt-3 px-3 mt-3 w-100 d-flex justify-content-center bg-dark rounded-top">
+        <div class="input-group mx-2">
+          <input type="text" name="query" value="{{ query }}" class="form-control" placeholder="Search by name, description, category, or status"/>
         </div>
-    </div>
 
-        <div class="p-2 w-100 bd-highlight">
+        <button class="btn btn-primary mx-2" type="submit" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class=" w-100 d-flex justify-content-center bg-dark p-3 rounded-bottom">
+      <!-- Add a new input field for the 'price' query input -->
+      <input type="number" name="max_price" value="{{ max_price }}" placeholder="Maximum Price" class="form-control mx-2"/>
+      <!-- Add a new input field for the 'price' query input -->
+      <input type="number" name="min_price" value="{{ min_price }}" placeholder="Minimum Price" class="form-control mx-2"/>
 
-            <div class="container">
-                <div class="row">
-
-                <div class="col-lg-3 col-md-12">
-                    <hr>
-
-                    <p class=""> Categories</p>
-                    <ul>
-                        {% for category in categories %}
-                        <li class="list-group-item {% if category.id == category_id %} bg-secondary{% endif %}">
-                            <a href="{% url 'item:browse' %}?query={{query}}&category={{category.id}}">
-                                {{ category.name }}
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-        
-                    <hr>
-        
-                    <p class=""> Clear filters</p>
-        
-                    <ul>
-                        <li class="list-group-item"> <a href="{% url 'item:browse' %}" class="btn btn-primary">Reset</a></li>
-                    </ul>
-                </div>   
-
-
-
-
-                <div class="col-lg-9 col-md-12">
-                <h2 class=" text-center m-3">Browse</h2>
-
+      </div>
+    </form>
+  </div>
+    
+    <h2 class=" text-center m-3">Bläddra</h2>
                 
     <div class="container justify-content-center">
         <div class="row">
             {% for item in items %}
-            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                <div class="card mb-4 shadow">
-                <a href="{% url 'item:detail' item.id %}">
-
-                    <img
-                    data-src="{{ item.image.url }}" 
-                    alt="{{ item.name }}"
-                    class="item-image lazy w-100 shadow rounded-top card-img-top "
-                    />
-
-                    <table class="table table-sm table-dark table-borderless rounded-bottom card-body bg-dark m-0">
-                        <tbody>
-                          <tr>
-                            <td class="d-flex flex-row justify-content-between align-middle m-2">
-                              <h4 class="card-title pt-1">{{item.price}}€</h4>
-                              <div class="btn btn-light text-dark pe-none">
-                                <div class="row p-0 m-0">
-                                  {% if item.status|lower == 'skicka' %}
-                                    <img src="{% static 'skicka.svg' %}" class="col p-0 " width="20px" height="20px" style="margin-top: .1rem"/>
-                                    <p class="col p-0 m-0 px-1">Skickas</p>
-                                  {% elif item.status|lower == 'hämta' %}
-                                    <img src="{% static 'ta_emot.svg' %}" class="col p-0 " width="20px" height="20px" style="margin-top: .2rem"/>
-                                    <p class="col p-0 m-0 px-1">Hämta</p>
-                                  {% elif item.status|lower == 'träffa' %}
-                                    <img src="{% static 'träffa.svg' %}" class="col-sm p-0" width="20px" height="20px" style="margin-top: .1rem" />
-                                    <p class="col-sm p-0 m-0 px-1">{{ item.status }}</p>
-                                  {% endif %}
-                                </div>
-                              </div>
-                            </td>
-                            <td class="d-flex flex-row justify-content-between align-middle m-2">
-                              <h4 class="card-text col-sm m-0 p-0">{{item.name|truncatechars:12}}</h4>
-                              <p class="card-text text-secondary m-0 p-0">{{item.created_at|date:"d M Y"}}</p>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      
-
-                </a>
-            </div>
-            </div>
+            {% include 'core/list.html' %}
             {% endfor %}
         </div>
     </div>
 
 
 
-                </div>
-            </div>
-        </div>
-        </div>
-    </div>
-    </div>
-</div>
+  </div>
+
 {% endblock %}
