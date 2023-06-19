@@ -1,40 +1,32 @@
 {% extends 'core/base.html' %}
 
 
-{% block title %}Sign up{% endblock  %}
+{% block title %}Logga in{% endblock  %}
     
 
 
 {% block content %}
     <div class="w1/2 my-6 mx-auto m-3 p-5 text-dark border rounded shadow">
-        <h1 class="">Login</h1>
+        <h1 class="">Logga in</h1>
 
         <form method="post" action=".">
             {% csrf_token %}
 
+            {% for field in form %}
             <div class="mb-2 form-group">
-                <label for="username" class="form-control-label mb-2">Username</label><br>
-                {{ form.username }}
-            </div>
-
-            <div class="mb-2 form-group">
-                <label for="password" class="form-control-label mb-2" >Password</label><br>
-                {{ form.password}}
-            </div>
-
-
-            {% if form.non_field_errors or form.errors %}
-                <div>
-                    {% for field in form %}
+                <label for="{{ field.id_for_label }}" class="form-control-label mb-2">{{ field.label }}</label><br>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="p-2 mt-2 alert alert-danger text-center">
                         {% for error in field.errors %}
-                            <p class="text-danger">{{ error }}</p>
+                            {{ error }}
                         {% endfor %}
-                    {% endfor %}
-                    {{ form.none_field_error }}
-                </div>
-            {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            {% endfor %}
 
-            <button type="submit" class="btn btn-primary mt-2">Submit</button>
+            <button type="submit" class="btn btn-primary me-2" onclick="this.disabled=true,this.form.submit();">Logga in</button>
         </form>
     </div>
 {% endblock  %}

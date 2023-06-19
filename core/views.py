@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.db import models
 
+from django.contrib.auth import login, authenticate
 
 import random
 
@@ -22,7 +23,12 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('core:index')
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user =  authenticate(request,username=username, password=password)
+            if user:
+                login(request, user)
+                return redirect('core:index')
     else:
         form = SignupForm()
 
