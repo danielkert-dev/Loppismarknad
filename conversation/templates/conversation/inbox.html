@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+
+{% block title %}Inkorg{% endblock %}
+    
+
+{% block content %}
+    <h2 class="text-center m-3">Inkorg</h2>
+
+    <div class="container">
+        
+        {% for conversation in conversations  %}
+        <a href="{% url 'conversation:detail' conversation.id %}">
+            <div class="mb-2 border shadow rounded">
+
+            <div class="d-flex justify-content-left p-2">
+
+                <div class="">
+                <img src="{{ conversation.item.image.url }}" alt="" width="100px" height="100px" class="rounded" style="object-fit: cover"/>
+                </div>
+
+                <div class="d-flex flex-column p-2">
+                    {% for member in conversation.members.all %}
+                    {% if forloop.counter == 1 %}
+                    <div class="d-flex flex-row">
+                        {% with first_username=member.username %}
+                                <p><strong>{{ first_username }}</strong>&nbsp;</p>
+                        {% endwith %}
+                    {% else %}
+                            <p class="col">| {{ conversation.modified_at }}</p>
+                        </div>
+                        <h5 class="col">{{ conversation.item.name }}</h5>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+            
+    </div>
+
+{% endblock %}

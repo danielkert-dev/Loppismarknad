@@ -27,7 +27,7 @@
         <div class="text-end">
           {% if request.user.is_authenticated %}
           <a href="{% url 'item:new' %}" class="btn btn-primary me-2">Ny inlägg</a>
-          <!-- <a href="#" class="btn btn-primary me-2">Inbox</a> -->
+          <a href="{% url 'conversation:inbox' %}" class="btn btn-primary me-2">Inkorg</a>
           <a href="{% url 'dashboard:index' %}" class="btn btn-primary me-2">Säljaröversikt</a>
           {% else %}
           <a href="{% url 'core:login' %}" class="btn btn-primary me-2">Logga in</a>

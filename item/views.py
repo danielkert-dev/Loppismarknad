@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewItemForm, EditItemForm
-from .models import Item, Category
+from .models import Item, Category, Status
 
 def browse(request):
     items = Item.objects.filter(is_sold=False)
@@ -12,7 +12,19 @@ def browse(request):
     min_price = request.GET.get('min_price')
     created_from = request.GET.get('created_from', '')
     created_to = request.GET.get('created_to', '')
+
+    category_id = request.GET.get('category')  # Get the selected category ID
+    status_id = request.GET.get('status')
+
+
     categories = Category.objects.all()
+    status= Status.objects.all()
+
+    if category_id:  # If a category is selected
+        items = items.filter(category_id=category_id)
+
+    if status_id:
+        items = items.filter(status_id=status_id)
 
     if max_price:
         items = items.filter(price__lte=max_price)  # Replace 'price' with the name of your new query input
@@ -40,9 +52,14 @@ def browse(request):
         'query': query,
         'max_price': max_price,  # Include the new variable in the dictionary
         'min_price': min_price,
-        'categories': categories,
         'created_from': created_from,
         'created_to': created_to,
+
+        'categories': categories,
+        'category_id': category_id,  # Pass the selected category ID to the template
+        'status': status,
+        'status_id': status_id,
+
 
     })
 

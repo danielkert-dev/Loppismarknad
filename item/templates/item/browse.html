@@ -9,49 +9,76 @@
     
 
 {% block content %}
-<div class="container ">
-
-  <div class=" p-2">
-    <form method="GET" action="{% url 'item:browse' %}">
-
-      <div class=" pt-3 px-3 mt-3 w-100 d-flex justify-content-center bg-dark rounded-top form-group">
-        <div class="input-group mx-2">
-          <input type="text" name="query" value="{{ query }}" class="form-control" placeholder="Sök efter namn, beskrivning, kategori eller status"/>
-        </div>
-
-        <button class="btn btn-primary mx-2 px-5" type="submit" >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-          </svg>
-        </button>
-      </div>
-
+<div class="container">
       
       
-      <div class=" w-100 d-flex justify-content-center bg-dark p-3">
-      <!-- Add a new input field for the 'price' query input -->
-      <input type="number" name="max_price" value="{{ max_price }}" placeholder="Maximum Price" class="form-control mx-2"/>
-      <!-- Add a new input field for the 'price' query input -->
-      <input type="number" name="min_price" value="{{ min_price }}" placeholder="Minimum Price" class="form-control mx-2"/>
+        <form method="GET" action="{% url 'item:browse' %}" class="m-0">
 
-        <label for="created_from" class="form-label text-light pt-2">Från:</label>
-        <input type="date" name="created_from"  class="form-control date mx-2" data-provide="datepicker" value="{{ created_from }}">
-        <label for="created_to" class="form-label text-light pt-2">Till:</label>
-        <input type="date" name="created_to"  class="form-control date mx-2" data-provide="datepicker" value="{{ created_to }}">
-      </div>
+              <div class="input-group p-2  pt-4">
+                    <input type="text" name="query" value="{{ query }}" class="form-control" placeholder="Sök efter namn, beskrivning, kategori eller status"/>
+                  <button class="btn btn-primary" type="submit" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                  </button>
+                </div>
 
-    </form>
-  </div>
+
+              <div class="row text-center border shadow rounded bg-dark text-light mx-2 pb-3">
+              <div class="col-md-3 m-0">
+              <!-- Add a new input field for the 'price' query input -->
+              <label for="created_from" class="form-label pt-2">Maximum pris</label>
+              <input type="number" name="max_price" value="{{ max_price }}" placeholder="Maximum Pris" class="form-control"/>
+              </div>
+
+              <div class="col-md-3 m-0">
+              <!-- Add a new input field for the 'price' query input -->
+              <label for="created_from" class="form-label pt-2">Minimum pris</label>
+              <input type="number" name="min_price" value="{{ min_price }}" placeholder="Minimum Pris" class="form-control"/>
+              </div>
+
+              <div class="col-md-3 m-0">
+              <label for="created_from" class="form-label pt-2">Från</label>
+              <input type="date" name="created_from"  class="form-control date" data-provide="datepicker" value="{{ created_from }}"/>
+              </div>
+
+              <div class="col-md-3 m-0">
+              <label for="created_to" class="form-label pt-2">Till</label>
+              <input type="date" name="created_to"  class="form-control date" data-provide="datepicker" value="{{ created_to }}"/>
+              </div>
+
+              <div class="col-md-3 m-0">
+                <label for="category" class="form-label pt-2">Kategori</label>
+                <select name="category" class="form-control">
+                  <option value="">Alla kategorier</option>
+                  {% for category in categories %}
+                    <option value="{{ category.id }}" {% if category.id|slugify == category_id %}selected{% endif %}>{{ category.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-md-3 m-0">
+                <label for="status" class="form-label pt-2">Status</label>
+                <select name="status" class="form-control">
+                  <option value="">Alla status</option>
+                  {% for s in status %}
+                    <option value="{{ s.id }}" {% if s.id|slugify == status_id %}selected{% endif %}>{{ s.status }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              </div>
+              
+
+      </form>
     
     <h2 class=" text-center m-3">Bläddra</h2>
                 
-    <div class="container justify-content-center">
         <div class="row">
             {% for item in items %}
             {% include 'core/list.html' %}
             {% endfor %}
         </div>
-    </div>
 
 
 
