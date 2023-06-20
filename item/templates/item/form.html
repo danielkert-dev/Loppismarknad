@@ -2,6 +2,7 @@
 {% load static %}
 
 
+
 {% block title %}
     {{ title }}
 {% endblock %}
@@ -14,10 +15,45 @@
     <form action="." method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        {% for field in form %}
+
         <div class="mb-2 form-group">
-            <label for="{{ field.id_for_label }}" class="form-control-label mb-2">{{ field.label }}</label><br>
-            {{ field }}
+
+
+                <div>
+                    Kategory {{ form.category }}
+                    {% if form.category.errors %}
+                    <div class="p-2 mt-2 alert alert-danger text-center">
+                         {{form.category.errors.as_text}}
+                    </diV>
+                    {% endif %}
+                </div>
+                <div>
+                    Namn {{ form.name }}
+                    {% if form.name.errors %}
+                    <div class="p-2 mt-2 alert alert-danger text-center">
+                    {{form.name.errors.as_text}}
+                    </div>
+                     {% endif %}
+                </div>
+                <div>
+                    Beskrivning {{ form.description }}
+                </div>
+                <div>
+                    Pris i euro {{ form.price }}
+                </div>
+                <div>
+                    Stad, kommun {{ form.city }}
+                </div>
+                <div class="location-field">
+                    {{ form.location }}
+                </div>
+                <div class="mt-2">
+                    Bild {{ form.image }}
+                </div>
+                <div>
+                    Status {{ form.status }}
+                </div>
+
             {% if field.errors %}
                 <div class="p-2 mt-2 alert alert-danger text-center">
                     {% for error in field.errors %}
@@ -26,11 +62,11 @@
                 </div>
             {% endif %}
         </div>
-        {% endfor %}
+
         
         
 
-        <button type="submit" class="btn btn-primary me-2" onclick="this.disabled=true,this.form.submit();">Submit</button>
+        <button type="submit" class="btn btn-primary my-2" onclick="this.disabled=true,this.form.submit();">Submit</button>
     </form>
 </div>
 

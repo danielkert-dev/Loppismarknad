@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 from decouple import config
 
+from django.conf import settings
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'storages',
+    'location_field.apps.DefaultConfig',
 
     'conversation',
     'core',
@@ -159,3 +162,22 @@ AWS_SECRET_ACCESS_KEY = config('AWS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'loppismarknad'
 
 AWS_QUERYSTRING_AUTH = False
+
+
+# Map API
+
+LOCATION_FIELD_PATH = settings.STATIC_URL + 'location_field'
+
+LOCATION_FIELD = {
+    'map.provider': 'openstreetmap',
+    'search.provider': 'nominatim',
+    'provider.openstreetmap.max_zoom': 18,
+
+       # misc
+    'resources.root_path': LOCATION_FIELD_PATH,
+    'resources.media': {
+        'js': (
+            LOCATION_FIELD_PATH + '/js/form.js',
+        ),
+    },
+}

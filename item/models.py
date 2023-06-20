@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from location_field.models.plain import PlainLocationField
+
 class Category(models.Model):
     name = models.CharField(max_length=255)
 
@@ -32,7 +34,8 @@ class Item(models.Model):
     is_sold = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
-    location = models.CharField(max_length=255, blank=True, null=True,)
+    city = models.CharField(max_length=255, blank=True, null=True,)
+    location = PlainLocationField(based_fields=['city'])
     status = models.ForeignKey(Status, related_name='items', on_delete=models.CASCADE)
 
     class Meta:

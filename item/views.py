@@ -6,7 +6,7 @@ from .forms import NewItemForm, EditItemForm
 from .models import Item, Category, Status
 
 def browse(request):
-    items = Item.objects.filter(is_sold=False)
+    items = Item.objects.filter(is_sold=False)[0:20]
     query = request.GET.get('query', '')
     max_price = request.GET.get('max_price')
     min_price = request.GET.get('min_price')
@@ -58,7 +58,7 @@ def browse(request):
         'categories': categories,
         'category_id': category_id,  # Pass the selected category ID to the template
         'status': status,
-        'status_id': status_id,
+        
 
 
     })

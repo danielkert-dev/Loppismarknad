@@ -5,15 +5,15 @@
     
 
 {% block content %}
-    <h1>Konversation</h1>
+    <h2 class="text-center m-3">Konversation</h2>
 
     <div class="container">
-        
+        <div class="mx-5">
         {% for message in conversation.messages.all  %}
-            <div class="mb-2 border shadow rounded {% if message.created_by == request.user %} bg-primary text-white {% else %} bg-secondary {% endif %}">
+            <div class="mb-2 border shadow rounded p-3 {% if message.created_by == request.user %} bg-dark text-light ms-5 {% else %} bg-primary text-light me-5 {% endif %}">
                 <div>
-                    <p class="">{{ message.created_by.username }} | {{ message.created_at }}</p>
-                    <p>{{ message.content }}</p>
+                    <p class=""><strong>{{ message.created_by.username }}</strong> | {{ message.created_at }}</p>
+                    <h5>{{ message.content }}</h5>
                 </div>
             </div>
         {% endfor %}
@@ -21,11 +21,22 @@
     <form action="." method="post">
         {% csrf_token %}
         
-        {{ form.as_p}}
+        {% for field in form %}
+        <div class="mb-2 form-group">
+            {{ field }}
+            {% if field.errors %}
+                <div class="p-2 mt-2 alert alert-danger text-center">
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
 
         <button type="submit" class="btn btn-primary me-2" onclick="this.disabled=true,this.form.submit();">Skicka</button>
     </form>
-
+    </div>
 </div>
                 
 {% endblock %}

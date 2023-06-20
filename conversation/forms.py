@@ -8,5 +8,5 @@ class ConversationMessageForm(forms.ModelForm):
         fields = ['content',]
 
         widgets = {
-            'content': forms.Textarea(attrs={'rows': 5, 'cols': 40})
-        }
+            'content': forms.Textarea(attrs={'rows': 5, 'cols': 40, 'class': 'form-control'}),
+        } 
