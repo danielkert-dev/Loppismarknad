@@ -3,8 +3,15 @@ from django.db import models
 
 from location_field.models.plain import PlainLocationField
 
+class CategoryGroup(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
 class Category(models.Model):
     name = models.CharField(max_length=255)
+    group = models.ForeignKey(CategoryGroup, related_name='categories', blank=True , null=True, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['name',]

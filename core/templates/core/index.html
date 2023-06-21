@@ -8,6 +8,8 @@
         <div class="container">
             <div class="d-flex flex-wrap flex-row justify-content-center mt-4">
             {% for category in popular_categories  %}
+            {% if category.get_item_count == 0 %}
+            {% else %}
             <div class="m-1">
                 <a href="{% url 'item:browse' %}?query={{ category.name }}">
                 <div class="rounded-pill shadow bg-dark text-light">
@@ -15,6 +17,8 @@
                 </div>
             </a>
             </div>
+            {% endif %}
+            
 
             {% endfor %}
             </div>

@@ -18,14 +18,30 @@
 
 
         <div class="mb-2 form-group mx-auto">
-                <div>
-                    Kategory {{ form.category }}
-                    {% if form.category.errors %}
-                    <div class="p-2 mt-2 alert alert-danger text-center">
-                         {{form.category.errors.as_text}}
-                    </diV>
-                    {% endif %}
-                </div>
+
+    <div>
+        Kategori
+        <select name="{{ form.category.name }}" class="form-control my-2">
+            <option value="">Välj kategori</option>
+            {% for choice in form.category.field.widget.choices %}
+                {% if choice.0 == 'group' %}
+                    <optgroup label="{{ choice.1.label }}">
+                        {% for category_choice in choice.1.choices %}
+                            <option value="{{ category_choice.0 }}">{{ category_choice.1 }}</option>
+                        {% endfor %}
+                    </optgroup>
+                {% endif %}
+            {% endfor %}
+        </select>
+        {% if form.category.errors %}
+            <div class="p-2 mt-2 alert alert-danger text-center">
+                {{ form.category.errors.as_text }}
+            </div>
+        {% endif %}
+    </div>
+
+    
+            
                 <div>
                     Namn {{ form.name }}
                     {% if form.name.errors %}

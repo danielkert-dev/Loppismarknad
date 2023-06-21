@@ -3,34 +3,30 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewItemForm, EditItemForm
-from .models import Item, Category, Status
+from .models import Item, Category, CategoryGroup, Status
 
 def browse(request):
-    items = Item.objects.filter(is_sold=False)[0:20]
     query = request.GET.get('query', '')
     max_price = request.GET.get('max_price')
     min_price = request.GET.get('min_price')
     created_from = request.GET.get('created_from', '')
     created_to = request.GET.get('created_to', '')
-
-    category_id = request.GET.get('category')  # Get the selected category ID
+    category_id = request.GET.get('category')
     status_id = request.GET.get('status')
 
+    items = Item.objects.filter(is_sold=False)
 
-    categories = Category.objects.all()
-    status= Status.objects.all()
-
-    if category_id:  # If a category is selected
+    if category_id:
         items = items.filter(category_id=category_id)
 
     if status_id:
         items = items.filter(status_id=status_id)
 
     if max_price:
-        items = items.filter(price__lte=max_price)  # Replace 'price' with the name of your new query input
+        items = items.filter(price__lte=max_price)
 
     if min_price:
-        items = items.filter(price__gte=min_price)  # Replace 'price' with the name of your new query input
+        items = items.filter(price__gte=min_price)
 
     if created_from:
         items = items.filter(created_at__gte=created_from)
@@ -39,28 +35,31 @@ def browse(request):
         items = items.filter(created_at__lte=created_to)
 
     if query:
-        keywords = query.split()  # Split query into separate keywords
-        query_filter = Q()  # Create an empty Q object
+        keywords = query.split()
+        query_filter = Q()
 
         for keyword in keywords:
-            query_filter |= Q(name__icontains=keyword) | Q(category__name__icontains=keyword) | Q(status__status__icontains=query)
+            query_filter |= Q(name__icontains=keyword) | Q(category__name__icontains=keyword) | Q(status__status__icontains=keyword)
 
         items = items.filter(query_filter)
+
+    items = items[:20]  # Apply slicing after all filters
+
+    categories_group = CategoryGroup.objects.all()
+    categories = Category.objects.all()
+    status = Status.objects.all()
 
     return render(request, 'item/browse.html', {
         'items': items,
         'query': query,
-        'max_price': max_price,  # Include the new variable in the dictionary
+        'max_price': max_price,
         'min_price': min_price,
         'created_from': created_from,
         'created_to': created_to,
-
+        'categories_group': categories_group,
         'categories': categories,
-        'category_id': category_id,  # Pass the selected category ID to the template
+        'category_id': category_id,
         'status': status,
-        
-
-
     })
 
 def detail(request, pk):
