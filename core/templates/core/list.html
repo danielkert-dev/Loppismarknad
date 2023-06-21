@@ -16,16 +16,16 @@
                       <tr>
                         <td class="d-flex flex-row justify-content-between align-middle m-2">
                           <h4 class="card-title pt-1">{{item.price}}€</h4>
-                          <div class="btn btn-light text-dark pe-none">
+                          <div class="btn btn-light text-dark pe-none" aria-label="Status">
                             <div class="row p-0 m-0">
                               {% if item.status|lower == 'skicka' %}
-                                <img src="{% static 'skicka.svg' %}" class="col p-0 " width="20px" height="20px" style="margin-top: .1rem"/>
+                                <img src="{% static 'skicka.svg' %}" class="col p-0 " width="20px" height="20px" style="margin-top: .1rem" alt="Skicka"/>
                                 <p class="col p-0 m-0 px-1">Skickas</p>
                               {% elif item.status|lower == 'hämta' %}
-                                <img src="{% static 'ta_emot.svg' %}" class="col p-0 " width="20px" height="20px" style="margin-top: .2rem"/>
+                                <img src="{% static 'ta_emot.svg' %}" class="col p-0 " width="20px" height="20px" style="margin-top: .2rem" alt="Hämta"/>
                                 <p class="col p-0 m-0 px-1">Hämta</p>
                               {% elif item.status|lower == 'träffa' %}
-                                <img src="{% static 'träffa.svg' %}" class="col-sm p-0" width="20px" height="20px" style="margin-top: .1rem" />
+                                <img src="{% static 'träffa.svg' %}" class="col-sm p-0" width="20px" height="20px" style="margin-top: .1rem" alt="Träffa" />
                                 <p class="col-sm p-0 m-0 px-1">{{ item.status }}</p>
                               {% endif %}
                             </div>

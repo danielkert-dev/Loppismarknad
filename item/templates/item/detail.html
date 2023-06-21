@@ -15,19 +15,20 @@
 
         <div class="col-lg  p-3 mb-4" >
             <h3 class="mb-3 mt-3 text-break"> {{ item.name }}</h3>
-            <p class="text-secondary mb-2"><strong>Pris: </strong>{{ item.price }}</p>
-            <p class="text-secondary mb-2"><strong>Säljare: </strong>{{ item.created_by.username}}</p>
+            <p class="text-secondary mb-2"><strong>Pris: </strong>&nbsp;{{ item.price }}</p>
+            <p class="text-secondary mb-2"><strong>Säljare: </strong>&nbsp;{{ item.created_by.username}}</p>
+            <p class="text-secondary mb-2"><strong>Kontakt: </strong>&nbsp;{{ item.contact_number }} | {{ item.contact_email }}</p>
             {% if item.description %}
             <p class="text-secondary mb-2"><strong>Beskrivning: </strong> {{ item.description}} </p>
             {% endif %}
             <hr>
             {% if request.user == item.created_by %}
                 <p>Den är din inlägg</p>
-                <a href="{% url 'item:edit' item.id %}" class="btn btn-primary btn-outline-light mt-1">Regera</a>
-                <a href="{% url 'item:delete' item.id %}" class="btn btn-danger mt-1">Radera</a>
+                <a href="{% url 'item:edit' item.id %}" class="btn btn-primary btn-outline-light mt-1" aria-label="Regera">Regera</a>
+                <a href="{% url 'item:delete' item.id %}" class="btn btn-danger mt-1" aria-label="Radera">Radera</a>
                 <br/><br/>
             {% else %}
-            <a href="{% url 'conversation:new' item.id %}" class="btn btn-primary btn-outline-light  mt-1">Kontakta säljare</a>
+            <a href="{% url 'conversation:new' item.id %}" class="btn btn-primary btn-outline-light  mt-1" aria-label="Kontakta säljare">Kontakta säljare</a>
             {% endif %}
         </div>
 

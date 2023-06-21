@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Loppismarknad. Skicka, Hämta, Träffa. För dig som vill bort med värde till andra.">
 
     <title>{% block title %}{% endblock %}</title>
 
@@ -68,11 +69,6 @@
             document.querySelectorAll('.item-image').forEach(img => {
                 
                 img.classList.add('easeload');
-                img.onload = function() {
-                    setTimeout(function(){
-                        this.style.opacity=1;
-                    }, 500);
-                }
                 img.height="50";
                 img.width="50";
                 img.style="object-fit:cover; max-height: 20rem; min-height: 20rem;" 
