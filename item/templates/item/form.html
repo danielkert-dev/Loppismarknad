@@ -10,15 +10,14 @@
 
 {% block content %}
 
-<div class="w1/2 my-6 mx-auto m-3 p-5 text-dark border rounded shadow">
+<div class="container">
+<div class=" mx-auto my-3 p-5 text-dark border rounded shadow">
     <h1 class="mb-2"> {{ title }}</h1>
     <form action="." method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
 
-        <div class="mb-2 form-group">
-
-
+        <div class="mb-2 form-group mx-auto">
                 <div>
                     Kategory {{ form.category }}
                     {% if form.category.errors %}
@@ -35,23 +34,72 @@
                     </div>
                      {% endif %}
                 </div>
+
+                <div>
+                    Nummer {{ form.contact_number }}
+                    {% if form.contact_number.errors %}
+                    <div class="p-2 mt-2 alert alert-danger text-center">
+                    {{form.contact_number.errors.as_text}}
+                    </div>
+                     {% endif %}
+                </div>
+
+                <div>
+                    E-postadress {{ form.contact_email }}
+                    {% if form.contact_email.errors %}
+                    <div class="p-2 mt-2 alert alert-danger text-center">
+                    {{form.contact_email.errors.as_text}}
+                    </div>
+                     {% endif %}
+                </div>
+
                 <div>
                     Beskrivning {{ form.description }}
+                    {% if form.description.errors %}
+                    <div class="p-2 mt-2 alert alert-danger text-center">
+                    {{form.description.errors.as_text}}
+                    </div>
+                     {% endif %}
                 </div>
                 <div>
                     Pris i euro {{ form.price }}
+                    {% if form.price.errors %}
+                    <div class="p-2 mt-2 alert alert-danger text-center">
+                    {{form.price.errors.as_text}}
+                    </div>
+                     {% endif %}
                 </div>
                 <div>
-                    Stad, kommun {{ form.city }}
+                    Stad, kommun, Adress ( Åland, Mariehamn, Storagatan 1 ){{ form.city }}
+                    {% if form.city.errors %}
+                    <div class="p-2 mt-2 alert alert-danger text-center">
+                    {{form.city.errors.as_text}} 
+                    </div>
+                     {% endif %}
                 </div>
                 <div class="location-field">
                     {{ form.location }}
+                    {% if form.location.errors %}
+                    <div class="p-2 mt-2 alert alert-danger text-center">
+                    {{form.location.errors.as_text}}
+                    </div>
+                     {% endif %}
                 </div>
                 <div class="mt-2">
                     Bild {{ form.image }}
+                    {% if form.image.errors %}
+                    <div class="p-2 mt-2 alert alert-danger text-center">
+                    {{form.image.errors.as_text}}
+                    </div>
+                     {% endif %}
                 </div>
                 <div>
                     Status {{ form.status }}
+                    {% if form.status.errors %}
+                    <div class="p-2 mt-2 alert alert-danger text-center">
+                    {{form.status.errors.as_text}}
+                    </div>
+                     {% endif %}
                 </div>
 
             {% if field.errors %}
@@ -69,7 +117,7 @@
         <button type="submit" class="btn btn-primary my-2" onclick="this.disabled=true,this.form.submit();">Submit</button>
     </form>
 </div>
-
+</div>
 {% endblock  %}
     
     

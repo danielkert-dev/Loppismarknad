@@ -7,31 +7,31 @@
 
 <div class="container">
     <h2 class=" text-center m-3">Dina inlägg</h2>
-    <div class="container justify-content-center">
-            <table class="table table-striped w-auto m-auto">
+    <div class="container justify-content-center overflow-scroll">
+            <table class="table table-striped w-100 m-auto overflow-scroll">
                 <thead>
                     <tr>
-                        <th class="bg-dark text-light" scope="col" style="border-top-left-radius: .5rem;">#</th>
+                        <th class="bg-dark text-light" scope="col" >#</th>
                         <th class="bg-dark text-light" scope="col">Regera/ Radera</th>
                         <th class="bg-dark text-light" scope="col">Såld</th>
                         <th class="bg-dark text-light" scope="col">Namn</th>
                         <th class="bg-dark text-light" scope="col">Pris</th>
                         <th class="bg-dark text-light" scope="col">Status</th>
                         <th class="bg-dark text-light" scope="col">Datum</th>
-                        <th class="bg-dark text-light" scope="col" style="border-top-right-radius: .5rem;">Plats</th>
+                        <th class="bg-dark text-light" scope="col" >Plats</th>
                     </tr>
                 </thead>
                 <tbody>
             {% for item in items %}
                         <tr>
                             <th scope="row" class="text-center">{{ forloop.counter }}</th>  
-                            <td><a href="{% url 'item:edit' item.id %}" class="btn btn-primary m-1"><img src="{% static 'edit.svg' %}" class="col p-0 " width="20px" height="20px" style="margin-top: .1rem"/></a>
-                                <a href="{% url 'item:delete' item.id %}" class="btn btn-danger m-1"><img src="{% static 'delete.svg' %}" class="col p-0 " width="20px" height="20px" style="margin-top: .1rem"/></a>                            
+                            <td><a href="{% url 'item:edit' item.id %}" class="btn btn-primary my-1"><img src="{% static 'edit.svg' %}" class="col p-0 " width="20px" height="20px" style="margin-top: .1rem"/></a>
+                                <a href="{% url 'item:delete' item.id %}" class="btn btn-danger my-1"><img src="{% static 'delete.svg' %}" class="col p-0 m-0 " width="20px" height="20px" style="margin-top: .1rem"/></a>                            
                             </td>
                             {% if item.is_sold %}
-                                <td>Sälld</td>
+                                <td>Till salu</td>
                             {% else %}
-                                <td>Inte sälld</td>
+                                <td>Inte såld</td>
                             {% endif %}
                             <td >{{ item.name }}</td>
                             <td>{{ item.price }}</td>

@@ -15,19 +15,19 @@
 
         <div class="col-lg  p-3 mb-4" >
             <h3 class="mb-3 mt-3 text-break"> {{ item.name }}</h3>
-            <p class="text-secondary mb-2"><strong>Price: </strong>{{ item.price }}</p>
-            <p class="text-secondary mb-2"><strong>Seller: </strong>{{ item.created_by.username}}</p>
+            <p class="text-secondary mb-2"><strong>Pris: </strong>{{ item.price }}</p>
+            <p class="text-secondary mb-2"><strong>Säljare: </strong>{{ item.created_by.username}}</p>
             {% if item.description %}
-            <p class="text-secondary mb-2"><strong>Description: </strong> {{ item.description}} </p>
+            <p class="text-secondary mb-2"><strong>Beskrivning: </strong> {{ item.description}} </p>
             {% endif %}
             <hr>
             {% if request.user == item.created_by %}
-                <p>This is your item</p>
-                <a href="{% url 'item:edit' item.id %}" class="btn btn-primary btn-outline-light mt-1">Edit</a>
-                <a href="{% url 'item:delete' item.id %}" class="btn btn-danger mt-1">Delete</a>
+                <p>Den är din inlägg</p>
+                <a href="{% url 'item:edit' item.id %}" class="btn btn-primary btn-outline-light mt-1">Regera</a>
+                <a href="{% url 'item:delete' item.id %}" class="btn btn-danger mt-1">Radera</a>
                 <br/><br/>
             {% else %}
-            <a href="{% url 'conversation:new' item.id %}" class="btn btn-primary btn-outline-light  mt-1">Contact seller</a>
+            <a href="{% url 'conversation:new' item.id %}" class="btn btn-primary btn-outline-light  mt-1">Kontakta säljare</a>
             {% endif %}
         </div>
 
@@ -35,12 +35,33 @@
 </div>
 <div class="container">
 <div class="w-100 h-1/2 my-auto">
-    <img src="https://www.netmaps.net/wp-content/uploads/2016/03/Helsinki-Vector-Map.jpg" class="w-100 rounded shadow"/>
+
+    <div id="map" style="height: 400px;" class="rounded shadow"></div>
+
+    {% block scripts %}
+<script>
+    function initMap() {
+        var coordinates = "{{ item.location }}".split(",");  // Assuming coordinates are in the format "latitude,longitude"
+        var map = L.map("map").setView(coordinates, 12);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+        }).addTo(map);
+        L.marker(coordinates).addTo(map)
+            .bindPopup("<b>{{ item.city }}</b>")
+            .openPopup();
+    }
+    window.addEventListener("DOMContentLoaded", initMap);
+</script>
+{% endblock %}
+
+
+
 </div>
 </div>
     <hr />
 
-    <h3 class="text-center m-3">Related Items</h3>
+    <h3 class="text-center m-3">Relaterade</h3>
 
 
                 

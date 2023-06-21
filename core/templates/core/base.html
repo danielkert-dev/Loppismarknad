@@ -10,7 +10,15 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"/>
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
     {{ form.media }}
 
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
@@ -18,6 +26,26 @@
     <style>
         .location-field input[type="text"] {
             display: none;
+        }
+
+
+        .leaflet-control-attribution.leaflet-control {
+            display: none;
+        }
+
+        #map_location {
+            flex: 1;
+            flex-basis: max-content;
+            flex-grow: 1;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%;
+            min-width: 100%;
+            border-radius: 1rem;
+        }
+
+        #map {
+            height: 500px;
         }
     </style>
 
