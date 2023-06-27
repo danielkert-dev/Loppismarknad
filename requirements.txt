@@ -11,3 +11,4 @@ django-b2==0.7.0
 python-decouple==3.8
 django-location-field==2.7.1
 six==1.16.0
+django-allauth==0.54.0

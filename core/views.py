@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.db import models
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
+from django.contrib import messages
 
 import random
 
@@ -10,12 +12,22 @@ import random
 from item.models import Category, Item
 
 
-from .forms import SignupForm
+from .forms import SignupForm, UpdateUserForm
+
+
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
+
 
 # Create your views here.
 
 def contact(request):
     return render(request, 'core/contact.html')
+
+
+def about(request):
+    return render(request, 'core/about.html')
 
 
 def signup(request):
@@ -29,13 +41,29 @@ def signup(request):
             if user:
                 login(request, user)
                 return redirect('core:index')
+        else:
+            # Handle login errors
+            login_errors = form.errors.get_json_data()
     else:
         form = SignupForm()
 
     return render(request, 'core/signup.html', {
-        'form': form
+        'form': form,
+        'login_errors': login_errors if 'login_errors' in locals() else None,
     })
 
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        form = UpdateUserForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect('core:profile')
+    else:
+        form = UpdateUserForm(instance=request.user)
+
+    return render(request, 'core/profile.html', {'form': form})
 
 def index(request):
     all_items = Item.objects.filter(is_sold=False)
@@ -99,3 +127,9 @@ def index(request):
         'popular_categories': popular_categories,
         'random_slogan': random_slogan,
     })
+
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'core/change_password.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('users-home')

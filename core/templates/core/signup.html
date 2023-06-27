@@ -6,48 +6,64 @@
 
 {% block content %}
     <div class="w1/2 my-6 mx-auto m-3 p-5 text-dark border rounded shadow">
-        <h1 class="">Logga in</h1>
+        <h1 class="">Registrera</h1>
 
         <form method="post" action=".">
             {% csrf_token %}
             <div class="mb-2 form-group mx-auto">
                 <div>
-                    Användarnamn {{ form.username}}
+                    <label for="{{ form.username.id_for_label }}">Användarnamn</label>
+                    {{ form.username }}
                     {% if form.username.errors %}
-                    <div class="p-2 mt-2 alert alert-danger text-center">
-                         {{form.username.errors.as_text}}
-                    </div>
+                        <div class="p-2 mt-2 alert alert-danger text-center">
+                            {% for error in form.username.errors %}
+                                {{ error|striptags }}
+                            {% endfor %}
+                        </div>
                     {% endif %}
                 </div>
 
                 <div>
-                    E-postadress {{ form.email}}
+                    <label for="{{ form.email.id_for_label }}">E-postadress</label>
+                    {{ form.email }}
                     {% if form.email.errors %}
-                    <div class="p-2 mt-2 alert alert-danger text-center">
-                         {{form.email.errors.as_text}}
-                    </div>
+                        <div class="p-2 mt-2 alert alert-danger text-center">
+                            {% for error in form.email.errors %}
+                                {{ error|striptags }}
+                            {% endfor %}
+                        </div>
                     {% endif %}
                 </div>
                 
                 <div>
-                    Lösenord {{ form.password1}}
+                    <label for="{{ form.password1.id_for_label }}">Lösenord</label>
+                    {{ form.password1 }}
                     {% if form.password1.errors %}
-                    <div class="p-2 mt-2 alert alert-danger text-center">
-                         {{form.password1.errors.as_text}}
-                    </div>
+                        <div class="p-2 mt-2 alert alert-danger text-center">
+                            {% for error in form.password1.errors %}
+                                {{ error|striptags }}
+                            {% endfor %}
+                        </div>
                     {% endif %}
                 </div>
 
                 <div>
-                    Bekräftelse {{ form.password2}}
+                    <label for="{{ form.password2.id_for_label }}">Bekräftelse</label>
+                    {{ form.password2 }}
                     {% if form.password2.errors %}
-                    <div class="p-2 mt-2 alert alert-danger text-center">
-                         {{form.password2.errors.as_text}}
-                    </div>
+                        <div class="p-2 mt-2 alert alert-danger text-center">
+                            {% for error in form.password2.errors %}
+                                {{ error|striptags }}
+                            {% endfor %}
+                        </div>
                     {% endif %}
                 </div>
 
+                <div class="my-4">
+
                 <button type="submit" class="btn btn-primary me-2" onclick="this.disabled=true,this.form.submit();">Registrera</button>
+
+                </div>
             </div>
         </form>
     </div>

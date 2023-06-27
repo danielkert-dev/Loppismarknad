@@ -8,7 +8,7 @@
     <h2 class="text-center m-3">Inkorg</h2>
 
     <div class="container">
-        
+        {% if conversations %}
         {% for conversation in conversations  %}
         <a href="{% url 'conversation:detail' conversation.id %}">
             <div class="mb-2 border shadow rounded">
@@ -37,6 +37,11 @@
         </div>
         </a>
         {% endfor %}
+
+        {% else %}
+        <h6 class="text-center">Inkorg är tom</h6>
+
+        {% endif %}
             
     </div>
 

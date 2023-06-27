@@ -7,7 +7,7 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-5">
           <li><a href="{% url 'core:index' %}" class="nav-link px-2 text-white">Hem</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Om</a></li>
+          <li><a href="{% url 'core:about' %}" class="nav-link px-2 text-white">Om</a></li>
           {% if request.user.is_authenticated %}
           <li><a href="{% url 'core:logout' %}" class="nav-link px-2 text-white">Logga ut</a></li>
           {% endif %}
