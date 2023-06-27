@@ -77,10 +77,11 @@ def new(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.created_by = request.user
+            item.user = request.user
             item.save()
             return redirect('item:detail', pk=item.id)
     else:
-        form = NewItemForm()
+        form = NewItemForm(request=request)
 
     return render(request, 'item/form.html', {
         'form': form,

@@ -8,6 +8,8 @@ from django.contrib import messages
 
 import random
 
+from django import forms
+from django.contrib.auth.forms import SetPasswordForm
 
 from item.models import Category, Item
 
@@ -128,11 +130,17 @@ def index(request):
         'random_slogan': random_slogan,
     })
 
+class ChangePasswordForm(SetPasswordForm):
+    def clean_old_password(self):
+        # Skip old password validation
+        pass
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     template_name = 'core/change_password.html'
     success_message = "Successfully Changed Your Password"
     success_url = reverse_lazy('core:index')
+
+    form_class = ChangePasswordForm
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):

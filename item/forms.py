@@ -11,12 +11,15 @@ class NewItemForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
 
+        request = kwargs.pop('request', None)  # Get the request object
+
         super().__init__(*args, **kwargs)
         self.fields['category'].choices = [('', 'Välja kategory')] + list(self.fields['category'].choices)[1:]
         self.fields['category'].queryset = Category.objects.order_by('group__name', 'name')
         self.fields['status'].choices = [('', 'Välja status')] + list(self.fields['status'].choices)[1:]
         self.fields['location'].initial = '60.0963705598206,19.927439689636234'
-        self.fields['contact_email'].initial = User.objects.first().email
+        if request and request.user.is_authenticated:
+            self.fields['contact_email'].initial = request.user.email
 
          # Get all category groups
         category_groups = CategoryGroup.objects.all()
