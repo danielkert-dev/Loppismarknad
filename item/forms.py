@@ -5,9 +5,6 @@ from django.contrib.auth.models import User
 
 from location_field.forms.plain import PlainLocationField
 
-import ipinfo
-import requests
-
 
 
 class NewItemForm(forms.ModelForm):

@@ -151,17 +151,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = ['https://loppismarknad.com']
 
-# AWS S3
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = config('AWS_ID')
+# B2 Media
 
-AWS_SECRET_ACCESS_KEY = config('AWS_KEY')
+DEFAULT_FILE_STORAGE = 'django_b2.storage.B2Storage'
 
-AWS_STORAGE_BUCKET_NAME = 'loppismarknad'
+B2_APP_KEY_ID=config('B2_APP_KEY_ID')
 
-AWS_QUERYSTRING_AUTH = False
+B2_APP_KEY=config('B2_APP_KEY')
+
+B2_BUCKET_NAME='loppismarknad'
+# see bellow:
+B2_FORCE_UNIQUE = False | True  # for v0.7, True is default
+# MEDIA_ROOT = ..
+# B2_LOCAL_MEDIA = 'ML'  # "", "M", "L", "ML"
 
 
 # Map API
