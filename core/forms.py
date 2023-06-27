@@ -89,7 +89,7 @@ class UpdateUserForm(forms.ModelForm):
                                required=True,
                                widget=forms.TextInput(attrs={'class': 'form-control my-2'}))
     email = forms.EmailField(required=True,
-                             widget=forms.TextInput(attrs={'class': 'form-control my-2'}))
+                             widget=forms.TextInput(attrs={'class': 'form-control '}))
 
     class Meta:
         model = User

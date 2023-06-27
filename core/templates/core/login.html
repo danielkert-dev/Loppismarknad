@@ -49,6 +49,10 @@
                         {% endfor %}
                 {% endif %}
 
+                <div class="form-group my-2 text-primary">
+                    <a href="{% url 'core:password_reset' %}">Glömde lösenord?</a>
+                </div>
+
 
                 <div class="my-4">
                 <button type="submit" class="btn btn-primary me-2" onclick="this.disabled=true,this.form.submit();">Logga in</button>
@@ -62,6 +66,8 @@
                     </a>
                 </button>
             </div>
+
+            
             </div>
         </form>
     </div>
