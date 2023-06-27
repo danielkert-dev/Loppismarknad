@@ -209,7 +209,9 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+
+# When pushing to production
+# ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
 
 # email configs
