@@ -5,14 +5,13 @@
     
 
 {% block content %}
-    <h1>New Conversation</h1>
+    <h2 class="text-center m-3">Ny Konversation</h2>
 
+<div class="container">
     <form action="." method="post">
         {% csrf_token %}
-
         {% for field in form %}
-        <div class="mb-2 form-group">
-            <label for="{{ field.id_for_label }}" class="form-control-label mb-2">{{ field.label }}</label><br/>
+        <div class="mb-2 form-group border shadow rounded p-3">
             {{ field }}
             {% if field.errors %}
                 <div class="p-2 mt-2 alert alert-danger text-center">
@@ -23,9 +22,8 @@
             {% endif %}
         </div>
         {% endfor %}
-        
-        
-
         <button type="submit" class="btn btn-primary me-2" onclick="this.disabled=true,this.form.submit();">Skicka</button>
     </form>
+</div>
+
 {% endblock %}

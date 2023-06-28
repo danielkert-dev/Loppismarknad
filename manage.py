@@ -3,6 +3,10 @@
 import os
 import sys
 
+# from django.core.mail import send_mail
+# send_mail('Subject here', 'Here is the message.', 'danielkertdev@gmail.com',
+# ['dreamcat900@gmail.com'], fail_silently=False)
+
 
 def main():
     """Run administrative tasks."""

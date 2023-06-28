@@ -3,7 +3,7 @@ from django.urls import path, include
 
 from . import views
 from .forms import LoginForm
-from core.views import ChangePasswordView, ResetPasswordView
+from core.views import ChangePasswordView, change_email
 
 
 app_name = 'core'
@@ -17,11 +17,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('profile/' , views.profile, name='profile'),
     path('password-change/', ChangePasswordView.as_view(), name='password_change'),
-    path('password-reset/', ResetPasswordView.as_view(), name='password_reset'),
-    path('password-reset-confirm/<uidb64>/<token>/',
-         auth_views.PasswordResetConfirmView.as_view(template_name='core/password_reset_confirm.html'),
-         name='password_reset_confirm'),
-    path('password-reset-complete/',
-         auth_views.PasswordResetCompleteView.as_view(template_name='core/password_reset_complete.html'),
-         name='password_reset_complete'),
+    path('follow/', views.change_email, name='follow'),
 ]

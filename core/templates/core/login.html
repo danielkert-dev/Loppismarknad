@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="w1/2 my-6 mx-auto m-3 p-5 text-dark border rounded shadow">
-        <h1 class="">Logga in</h1>
+        <h2 class="my-4 text-center">Logga in</h2>
 
         <form method="post" action=".">
             {% csrf_token %}
@@ -50,7 +50,7 @@
                 {% endif %}
 
                 <div class="form-group my-2 text-primary">
-                    <a href="{% url 'core:password_reset' %}">Glömde lösenord?</a>
+                    <a href="{% url 'core:contact' %}">Glömde lösenord?</a>
                 </div>
 
 

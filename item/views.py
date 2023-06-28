@@ -5,6 +5,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import NewItemForm, EditItemForm
 from .models import Item, Category, CategoryGroup, Status
 
+from django.core.mail import send_mail
+from django.contrib.auth.models import User
+
 def browse(request):
     query = request.GET.get('query', '')
     max_price = request.GET.get('max_price')
@@ -79,6 +82,24 @@ def new(request):
             item.created_by = request.user
             item.user = request.user
             item.save()
+
+            recipients = User.objects.filter(emailnotification__email=True)
+            if recipients.exists():
+                recipient_emails = recipients.values_list('email', flat=True)
+                recipient_names = recipients.values_list('first_name', flat=True)
+
+                item_name = item.name  # Get the item name
+                item_price = item.price  # Get the item price
+                item_id = item.id # Get the item id
+
+                send_mail(
+                    'En ny inlägg har skickats!',
+                    f'https://loppismarknad.com/.\n\nNamn: {item_name}\nPris: {item_price}\n\n{", ".join(recipient_names)}',
+                    'danielkertdev@gmail.com',  # Replace with your email address
+                    recipient_emails,
+                    fail_silently=True,
+                )
+
             return redirect('item:detail', pk=item.id)
     else:
         form = NewItemForm(request=request)

@@ -18,9 +18,11 @@ from .forms import SignupForm, UpdateUserForm
 
 
 from django.urls import reverse_lazy
-from django.contrib.auth.views import PasswordChangeView, PasswordResetView
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 
+from core.models import EmailNotification
+from core.forms import EmailNotificationForm
 
 # Create your views here.
 
@@ -66,6 +68,29 @@ def profile(request):
         form = UpdateUserForm(instance=request.user)
 
     return render(request, 'core/profile.html', {'form': form})
+
+
+@login_required
+def change_email(request):
+    user = request.user
+    try:
+        email_notification = user.email_notification
+    except EmailNotification.DoesNotExist:
+        email_notification = EmailNotification.objects.create(user=user)
+
+    if request.method == 'POST':
+        form = EmailNotificationForm(request.POST, instance=email_notification)
+        if form.is_valid():
+            form.save()
+            return redirect('core:follow')
+    else:
+        form = EmailNotificationForm(instance=email_notification)
+
+    return render(request, 'core/follow.html', {
+        'form': form,
+        'user': user,
+        'title': 'Change Email',
+    })
 
 def index(request):
     all_items = Item.objects.filter(is_sold=False)
@@ -143,12 +168,3 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     form_class = ChangePasswordForm
 
 
-class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
-    template_name = 'core/password_reset.html'
-    email_template_name = 'core/password_reset_email.html'
-    subject_template_name = 'core/password_reset_subject.html'
-    success_message = "We've emailed you instructions for setting your password, " \
-                      "if an account exists with the email you entered. You should receive them shortly." \
-                      " If you don't receive an email, " \
-                      "please make sure you've entered the address you registered with, and check your spam folder."
-    success_url = reverse_lazy('core:index')

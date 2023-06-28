@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
+from core.models import EmailNotification
+
+
 from django.contrib.auth import update_session_auth_hash
 
 
@@ -89,8 +92,18 @@ class UpdateUserForm(forms.ModelForm):
                                required=True,
                                widget=forms.TextInput(attrs={'class': 'form-control my-2'}))
     email = forms.EmailField(required=True,
-                             widget=forms.TextInput(attrs={'class': 'form-control '}))
+                             widget=forms.TextInput(attrs={'class': 'form-control my-2'}))
 
     class Meta:
         model = User
         fields = ['username', 'email']
+
+
+class EmailNotificationForm(forms.ModelForm):
+
+    class Meta:
+        model = EmailNotification
+        fields = ['email']
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-check-input', 'type': 'checkbox'}),
+        }
