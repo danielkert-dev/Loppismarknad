@@ -94,7 +94,7 @@ def change_email(request):
 
 def index(request):
     all_items = Item.objects.filter(is_sold=False)
-    paginator = Paginator(all_items, 10)
+    paginator = Paginator(all_items, 20)
     page_number = request.GET.get('page')
     items = paginator.get_page(page_number)
     categories = Category.objects.all()

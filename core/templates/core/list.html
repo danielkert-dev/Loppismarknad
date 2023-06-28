@@ -5,11 +5,14 @@
             <div class="card mb-4 shadow">
             <a href="{% url 'item:detail' item.id %}">
 
+              <div class="image-container">
                 <img
-                data-src="{{ item.image.url }}" 
-                alt="{{ item.name }}"
-                class="item-image lazy w-100 shadow rounded-top card-img-top "
+                  data-src="{{ item.image.url }}"
+                  alt="{{ item.name }}"
+                  class="item-image lazy w-100 shadow rounded-top card-img-top"
                 />
+                <div class="placeholder"></div>
+              </div>
 
                 <table class="table table-sm table-dark table-borderless rounded-bottom card-body bg-dark m-0">
                     <tbody>
@@ -43,3 +46,21 @@
             </a>
         </div>
         </div>
+<script>
+  $(document).ready(function () {
+    $(".item-image").each(function () {
+      var image = $(this);
+      var src = image.data("src");
+      var placeholder = image.siblings(".placeholder");
+  
+      // Preload the real image
+      var img = new Image();
+      img.src = src;
+      img.onload = function () {
+        // Replace the placeholder with the real image
+        image.attr("src", src).addClass("loaded"); // Add the "loaded" class to trigger the transition
+        placeholder.remove();
+      };
+    });
+  });
+</script>  
